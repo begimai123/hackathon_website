@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="{% block metadesciprtion %}{% endblock %}"
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+       <nav>
+           <header>
+    <center>
+        <img src="{% static 'img/logo.png' %}" alt="Dubarry of Ireland Store"></img>
+    </center>
+</header>
+    <ul>
+        <li><a href="{% url 'shop:allProdCat' %}">All Products</a></li>
+        <li>Your Cart()</li>
+    </ul>
+</nav><br>
+       {% block content %}
+       {% endblock %}
+    <div>
+    <p>&copy; Dubarry 2021, Dubarry of Ireland Ballinasloe, County Galway, Ireland. All Rights Reserved. </p>
+</div>
+</body>
+</html>
+
