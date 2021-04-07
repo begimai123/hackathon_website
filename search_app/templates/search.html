@@ -1,0 +1,33 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block metadescription %}
+    Whether a tailored tweed jacket, a cosy autumnal jumper, or a classic waxed coat,
+    our clothes are designed to be easy to wear, lasting and beautiful garments.
+{% endblock %}
+{% block title %}
+    Search - The Dubarry of Ireland Store
+{% endblock %}
+{% block content %}
+    <div>
+        <p class="text-center my_search_text">You have searched for: <b>{{ query }}</b></p>
+    </div>
+    <div class="container">
+        <div class="row mx-auto">
+            {% for product in products %}
+                <div class="my_bottom_margin col-9 col-sm-12 col-md-4 col-md-12 col-lg-4">
+                    <div class="card text-center" style="width: 18rem;">
+                        <a href="{{ product.get_url }}"><img class="card-img-top my_image"src="{{ product.image.url }}" alt="{{ product.name }}"></a>
+                        <div class="card-body">
+                            <h4>{{ product.name }}</h4>
+                            <p>${{ product.price }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="row mx-auto">
+                    <p class="text-center my_search_text">0 results found.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -3,28 +3,70 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="{% block metadesciprtion %}{% endblock %}"
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{% block metadesciprtion %}{% endblock %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/custom.css'%}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/all.min.css'%}">
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-       <nav>
-           <header>
+ <header>
     <center>
-        <img src="{% static 'img/logo.png' %}" alt="Dubarry of Ireland Store"></img>
+        <a href="{% url 'shop:allProdCat'%}"><img src="{% static 'img/logo.png' %}" alt="Dubarry of Ireland Store"></a>
     </center>
-</header>
-    <ul>
-        <li><a href="{% url 'shop:allProdCat' %}">All Products</a></li>
-        {% for cat in links %}
-            <li><a href="{{ cat.get_url }}">{{ cat.name }}</a></li>
-        {% endfor %}
-        <li>Your Cart()</li>
-    </ul>
+     </header>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+          <li class="nav-item dropdown {% if 'shop' in request.path %}active{% endif %}">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Shop
+          </a>
+
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url 'shop:allProdCat' %}">All Products</a></li>
+                {% for cat in links %}
+             <li><a class="dropdown-item" href="{{ cat.get_url }}">{{ cat.name }}</a></li>
+                {% endfor %}
+          </ul>
+        </li>
+          {% if item_count > 0 %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'shopping_cart:cart_detail' %}"><i class="fas fa-shopping-cart">({{ item_count }})</i></a>
+        </li>
+          {% endif %}
+      </ul>
+
+      <form class="d-flex" action="{% url 'search_app:searchResult' %}" method="get">
+          {% csrf_token %}
+        <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search" >
+        <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+  </div>
+</nav>
+       <nav>
 </nav><br>
        {% block content %}
        {% endblock %}
     <div>
-    <p>&copy; Dubarry 2021, Dubarry of Ireland Ballinasloe, County Galway, Ireland. All Rights Reserved. </p>
+        <div class="footer navbar-fixed-bottom my_footer ">
+    <p class="text-center">&copy; Dubarry 2021, Dubarry of Ireland Ballinasloe, County Galway, Ireland. All Rights Reserved. </p>
+            </div>
+        <script src="{% static 'js/popper.min.js'%}"></script>
+        <script src="{% static 'js/bootstrap.min.js'%}" ></script>
+
 </div>
 </body>
 </html>
