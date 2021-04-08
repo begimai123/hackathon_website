@@ -25,6 +25,10 @@ urlpatterns = [
     path('shop/', include('shop.urls', namespace='shop')),
     path('search/', include('search_app.urls', namespace='search_app')),
     path('shopping_cart/', include('shopping_cart.urls', namespace='shopping_cart')),
+    path('account/create/', views.signupView, name='signup'),
+    path('account/login/', views.signinView, name='signin'),
+    path('account/logout/', views.singoutView, name='signout'),
+
 
 ]
 
